@@ -121,6 +121,16 @@
                                     </stackView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nJN-th-c5K" userLabel="Timer View">
                                         <rect key="frame" x="0.0" y="470.5" width="343" height="196.5"/>
+                                        <subviews>
+                                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ffa-mn-aYc">
+                                                <rect key="frame" x="0.0" y="96.5" width="343" height="4"/>
+                                            </progressView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="Ffa-mn-aYc" secondAttribute="trailing" id="aXP-Bv-yUt"/>
+                                            <constraint firstItem="Ffa-mn-aYc" firstAttribute="leading" secondItem="nJN-th-c5K" secondAttribute="leading" id="i6b-77-e5k"/>
+                                            <constraint firstItem="Ffa-mn-aYc" firstAttribute="centerY" secondItem="nJN-th-c5K" secondAttribute="centerY" id="iYg-t7-thz"/>
+                                        </constraints>
                                     </view>
                                 </subviews>
                             </stackView>
@@ -135,6 +145,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="progressBar" destination="Ffa-mn-aYc" id="bXe-KP-bSj"/>
                         <outlet property="titleLabel" destination="XLm-5r-pSP" id="SuL-cx-qAU"/>
                     </connections>
                 </viewController>

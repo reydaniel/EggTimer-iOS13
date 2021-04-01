@@ -11,6 +11,7 @@ import UIKit
 class ViewController: UIViewController {
     
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var progressBar: UIProgressView!
     
     let eggTime = [
         "Soft": 5,
@@ -37,6 +38,10 @@ class ViewController: UIViewController {
                                      selector: #selector(showMessage),
                                      userInfo: nil,
                                      repeats: true)
+        
+        UIView.animate(withDuration: Double(seconds)){
+            self.progressBar.setProgress(1.0, animated: true)
+        }
     }
     
     @objc func showMessage(){
@@ -47,6 +52,7 @@ class ViewController: UIViewController {
             titleLabel.text = "Done!"
             print("Egg Ready!")
             timer?.invalidate()
+            progressBar.setProgress(0, animated: false)
         }
     }
 
