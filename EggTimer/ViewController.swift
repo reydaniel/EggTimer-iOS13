@@ -20,6 +20,7 @@ class ViewController: UIViewController {
     ]
     
     var seconds = 0
+    var totalTime = 0
     var timer: Timer?
     
     @IBAction func hardnessSelected(_ sender: UIButton) {
@@ -27,7 +28,7 @@ class ViewController: UIViewController {
         titleLabel.text = "Boiling \(eggName) Egg..."
         print("Boiling \(eggName) Egg...")
         
-        seconds = eggTime[eggName]!
+        totalTime = eggTime[eggName]!
         countdown()
     }
     
@@ -39,20 +40,22 @@ class ViewController: UIViewController {
                                      userInfo: nil,
                                      repeats: true)
         
-        UIView.animate(withDuration: Double(seconds)){
-            self.progressBar.setProgress(1.0, animated: true)
-        }
+//        UIView.animate(withDuration: Double(seconds)){
+//            self.progressBar.setProgress(1.0, animated: true)
+//        }
     }
     
     @objc func showMessage(){
-        if seconds > 0 {
+        if totalTime > seconds {
+            let progress = seconds / totalTime
+            progressBar.progress = Float(progress)
+            seconds += 1
             print("\(seconds)s remaining")
-            seconds -= 1
         } else {
             titleLabel.text = "Done!"
             print("Egg Ready!")
             timer?.invalidate()
-            progressBar.setProgress(0, animated: false)
+//            progressBar.setProgress(0, animated: false)
         }
     }
 
