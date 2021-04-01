@@ -10,10 +10,12 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    @IBOutlet weak var titleLabel: UILabel!
+    
     let eggTime = [
-        "softEgg": 5,
-        "mediumEgg": 8,
-        "hardEgg": 12
+        "Soft": 5,
+        "Medium": 8,
+        "Hard": 12
     ]
     
     var seconds = 0
@@ -21,24 +23,11 @@ class ViewController: UIViewController {
     
     @IBAction func hardnessSelected(_ sender: UIButton) {
         let eggName = sender.currentTitle!
+        titleLabel.text = "Boiling \(eggName) Egg..."
+        print("Boiling \(eggName) Egg...")
         
-        switch eggName {
-            case "Soft":
-                seconds = eggTime["softEgg"]!
-                print("Boiling Soft Egg...")
-                countdown()
-            case "Medium":
-                seconds = eggTime["mediumEgg"]!
-                print("Boiling Medium Egg...")
-                countdown()
-            case "Hard":
-                seconds = eggTime["hardEgg"]!
-                print("Boiling Hard Egg...")
-                countdown()
-            default:
-                print("Egg was gone")
-            }
-        
+        seconds = eggTime[eggName]!
+        countdown()
     }
     
     func countdown() {
@@ -55,6 +44,7 @@ class ViewController: UIViewController {
             print("\(seconds)s remaining")
             seconds -= 1
         } else {
+            titleLabel.text = "Done!"
             print("Egg Ready!")
             timer?.invalidate()
         }
