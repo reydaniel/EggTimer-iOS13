@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class ViewController: UIViewController {
     
@@ -22,12 +23,13 @@ class ViewController: UIViewController {
     var seconds = 0
     var totalTime = 0
     var timer: Timer?
+    var audio: AVAudioPlayer?
     
     @IBAction func hardnessSelected(_ sender: UIButton) {
         let eggName = sender.currentTitle!
+        seconds = 0
+        progressBar.progress = 0.0
         titleLabel.text = "Boiling \(eggName) Egg..."
-        print("Boiling \(eggName) Egg...")
-        
         totalTime = eggTime[eggName]!
         countdown()
     }
@@ -39,24 +41,26 @@ class ViewController: UIViewController {
                                      selector: #selector(showMessage),
                                      userInfo: nil,
                                      repeats: true)
-        
-//        UIView.animate(withDuration: Double(seconds)){
-//            self.progressBar.setProgress(1.0, animated: true)
-//        }
     }
     
     @objc func showMessage(){
-        if totalTime > seconds {
-            let progress = seconds / totalTime
-            progressBar.progress = Float(progress)
+        if seconds < totalTime {
+            print(seconds)
             seconds += 1
-            print("\(seconds)s remaining")
+            let progress = Float(seconds) / Float(totalTime)
+            progressBar.progress = progress
         } else {
             titleLabel.text = "Done!"
+            play()
             print("Egg Ready!")
             timer?.invalidate()
-//            progressBar.setProgress(0, animated: false)
         }
+    }
+    
+    func play() {
+        let soundType = Bundle.main.url(forResource: "alarm_sound", withExtension: "mp3")
+        audio = try! AVAudioPlayer(contentsOf: soundType!)
+        audio?.play()
     }
 
 }
